@@ -9,7 +9,7 @@
 
 - name: Test desired version is installed
   shell: "wkhtmltopdf --version | grep 'wkhtmltopdf {{ wkhtmltox_version }} (with patched qt)'"
-  when: wkhtmltox_installed is defined and wkhtmltox_installed|failed
+  when: wkhtmltox_installed is defined
   register: wkhtmltox_already_installed
   changed_when: no
   failed_when: no
@@ -18,13 +18,11 @@
   get_url:
     url: '{{wkhtmltox_package_download_url}}'
     dest: '/root/{{ wkhtmltox_package }}'
-  when: (wkhtmltox_installed is defined and wkhtmltox_installed|failed) or
-        (wkhtmltox_already_installed is defined and wkhtmltox_already_installed|failed)
+  when: wkhtmltox_installed is defined or wkhtmltox_already_installed is defined
 
 - name: 'Wkhtmltox | Install deb'
   command: gdebi --n '/root/{{ wkhtmltox_package }}'
-  when: (wkhtmltox_installed is defined and wkhtmltox_installed|failed) or
-        (wkhtmltox_already_installed is defined and wkhtmltox_already_installed|failed)
+  when: wkhtmltox_installed is defined or wkhtmltox_already_installed is defined
 
 - name: Create symlink of /usr/local/bin to /usr/bin
   file:
@@ -36,5 +34,4 @@
   loop:
     - { src: /usr/local/bin/wkhtmltopdf, dest: /usr/bin/wkhtmltopdf }
     - { src: /usr/local/bin/wkhtmltoimage, dest: /usr/bin/wkhtmltoimage }
-  when: (wkhtmltox_installed is defined and wkhtmltox_installed|failed) or
-        (wkhtmltox_already_installed is defined and wkhtmltox_already_installed|failed)
+  when: wkhtmltox_installed is defined or wkhtmltox_already_installed is defined
