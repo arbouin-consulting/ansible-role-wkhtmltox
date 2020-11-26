@@ -1,0 +1,19 @@
+---
+- name: 'Wkhtmltox | download {{wkhtmltox_package_download_url}}'
+  get_url:
+    url: '{{wkhtmltox_package_download_url}}'
+    dest: '/root/{{ wkhtmltox_package }}'
+  
+- name: 'Wkhtmltox | Install deb'
+  command: gdebi --n '/root/{{ wkhtmltox_package }}'
+
+- name:
+  file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    state: link
+  loop:
+    - { src: /usr/local/bin/wkhtmltopdf, dest: /usr/bin/wkhtmltopdf }
+    - { src: /usr/local/bin/wkhtmltoimage, dest: /usr/bin/wkhtmltoimage }
