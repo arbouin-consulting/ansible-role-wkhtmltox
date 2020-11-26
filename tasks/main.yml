@@ -5,10 +5,10 @@
   changed_when: no
   failed_when: no
   environment:
-    PATH: "${PATH}:{{ wkhtmltopdf_dir_install }}"
+    PATH: "${PATH}:{{ wkhtmltox_dir_install }}"
 
 - name: Test desired version is installed
-  shell: "wkhtmltopdf --version | grep 'wkhtmltopdf {{ wkhtmltopdf_version }} (with patched qt)'"
+  shell: "wkhtmltopdf --version | grep 'wkhtmltopdf {{ wkhtmltox_version }} (with patched qt)'"
   when: wkhtmltox_installed is defined and wkhtmltox_installed|failed
   register: wkhtmltox_already_installed
   changed_when: no
