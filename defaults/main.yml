@@ -3,7 +3,7 @@ wkhtmltox_dir_install: /usr/local/bin
 wkhtmltox_user: "{{ ansible_env.USER }}"
 wkhtmltox_version: 0.12.4
 
-wkhtmltox_mm_version: "{{ '.'.join(wkhtmltox_version.split('-')[0:2]) }}"
+wkhtmltox_mm_version: "{{ wkhtmltox_version.split('-')[0] }}"
 
 wkhtmltox_package: "wkhtmltox_{{ wkhtmltox_version }}.{{ ansible_distribution_release }}_{{ (ansible_architecture == 'x86_64') | ternary('amd64', 'i386') }}.deb"
 wkhtmltox_package_download_url: "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/{{ wkhtmltox_mm_version }}/{{ wkhtmltox_package }}"
