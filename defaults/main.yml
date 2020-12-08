@@ -1,4 +1,6 @@
 ---
+package_dependencies:
+  - gdebi-core
 wkhtmltox_dir_install: /usr/local/bin
 wkhtmltox_user: "{{ ansible_env.USER }}"
 wkhtmltox_version: 0.12.4

@@ -1,11 +1,16 @@
 ---
 - name: Test is wkhtmltopdf installed
-  shell: which wkhtmltopdf
+  shell: /usr/bin/which wkhtmltopdf
   register: wkhtmltox_installed
   changed_when: no
   failed_when: no
   environment:
     PATH: "${PATH}:{{ wkhtmltox_dir_install }}"
+
+- name: Install dependencies
+  package:
+    name: "{{ package_dependencies }}"
+    state: present
 
 - name: Test desired version is installed
   shell: "wkhtmltopdf --version | grep 'wkhtmltopdf {{ wkhtmltox_version }} (with patched qt)'"
