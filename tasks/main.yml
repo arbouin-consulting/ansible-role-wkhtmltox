@@ -23,11 +23,11 @@
   get_url:
     url: '{{wkhtmltox_package_download_url}}'
     dest: '/root/{{ wkhtmltox_package }}'
-  when: wkhtmltox_installed == "" or wkhtmltox_already_installed == ""
+  when: wkhtmltox_installed.stdout == "" or wkhtmltox_already_installed.stdout == ""
 
 - name: 'Wkhtmltox | Install deb'
   command: gdebi --n '/root/{{ wkhtmltox_package }}'
-  when: wkhtmltox_installed == "" or wkhtmltox_already_installed == ""
+  when: wkhtmltox_installed.stdout == "" or wkhtmltox_already_installed.stdout == ""
 
 - name: Create symlink of /usr/local/bin to /usr/bin
   file:
@@ -39,4 +39,4 @@
   loop:
     - { src: /usr/local/bin/wkhtmltopdf, dest: /usr/bin/wkhtmltopdf }
     - { src: /usr/local/bin/wkhtmltoimage, dest: /usr/bin/wkhtmltoimage }
-  when: wkhtmltox_installed == "" or wkhtmltox_already_installed == ""
+  when: wkhtmltox_installed.stdout == "" or wkhtmltox_already_installed.stdout == ""
